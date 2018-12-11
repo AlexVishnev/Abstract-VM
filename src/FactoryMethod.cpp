@@ -12,23 +12,23 @@
 
 #include "FactoryMethod.hpp"
 
-IOperand const *FactoryMethod::createInt8(std::string const & value) const {
+IOperand const *FactoryMethod::createInt8(std::string const &value) const {
 	return nullptr;
 }
 
-IOperand const *FactoryMethod::createInt16(std::string const & value) const {
+IOperand const *FactoryMethod::createInt16(std::string const &value) const {
 	return nullptr;
 }
 
-IOperand const *FactoryMethod::createInt32(std::string const & value) const {
+IOperand const *FactoryMethod::createInt32(std::string const &value) const {
 	return nullptr;
 }
 
-IOperand const *FactoryMethod::createFloat(std::string const & value) const {
+IOperand const *FactoryMethod::createFloat(std::string const &value) const {
 	return nullptr;
 }
 
-IOperand const *FactoryMethod::createDouble(std::string const & value) const {
+IOperand const *FactoryMethod::createDouble(std::string const &value) const {
 	return nullptr;
 }
 
@@ -41,6 +41,23 @@ FactoryMethod::~FactoryMethod() {
 }
 
 IOperand const *FactoryMethod::createOperand(eOperandType type, std::string const &value) const {
+	switch (type) {
+		case Int8:
+			return createInt8(value);
+			break;
+		case Int16:
+			return createInt16(value);
+			break;
+		case Int32:
+			return createInt32(value);
+			break;
+		case Float:
+			return createFloat(value);
+			break;
+		case Double:
+			return createDouble(value);
+			break;
+	}
 	return nullptr;
 }
 

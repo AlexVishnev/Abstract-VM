@@ -1,28 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Main.cpp                                           :+:      :+:    :+:   */
+/*   AbstractVM.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omiroshn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/11 13:49:14 by omiroshn          #+#    #+#             */
-/*   Updated: 2018/12/11 13:49:15 by omiroshn         ###   ########.fr       */
+/*   Created: 2018/12/11 11:46:31 by omiroshn          #+#    #+#             */
+/*   Updated: 2018/12/11 11:46:33 by omiroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AbstractVM.hpp"
 
-int main(int argc, char const *argv[])
+std::string AbstractVM::getLine()
 {
-	try
+	std::string str;
+
+	if (std::getline(std::cin, str))
+		return (str);
+	std::exit(1);
+}
+
+AbstractVM::AbstractVM()
+{
+	std::string str;
+
+	while (1)
 	{
-		if (argc == 1) {
-			AbstractVM stdin;
-		} else {
-			AbstractVM file(argv[1]);
-		}	
-	} catch (std::exception& e) {
-		std::cout << e.what() << std::endl;
+		str = getLine();
 	}
-	return 0;
+}
+
+AbstractVM::AbstractVM(const char *file)
+{
+	std::ifstream infile(file);
+	std::string line;
+
+	while (std::getline(infile, line))
+	{
+		std::cout << line << std::endl;
+	}
+}
+
+AbstractVM::~AbstractVM()
+{
+
 }

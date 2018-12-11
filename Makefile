@@ -13,7 +13,7 @@
 NAME = avm
 
 CC = g++
-FILES = Main FactoryMethod
+FILES = Main AbstractVM FactoryMethod
 SRC = $(addprefix src/, $(addsuffix .cpp, $(FILES)))
 OBJ = $(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_LIST = $(addsuffix .o, $(FILES))
