@@ -29,23 +29,6 @@ CFLAGS	=	-Wall -Wextra -Werror -std=c++11 -g
 	endif
 endif
 
-OS = $(shell uname)
-ifeq ($(OS), Linux)
-#CGFLAGS = `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
-else
-#CGFLAGS = -lmlx -framework OpenGL -framework AppKit
-#INCLUDES	=	-I./frameworks/SDL2.framework/Versions/A/Headers \
-				-I./frameworks/SDL2_ttf.framework/Versions/A/Headers \
-				-I./frameworks/SDL2_image.framework/Versions/A/Headers \
-				-I./frameworks/SDL2_mixer.framework/Headers \
-				-F./frameworks/
-#FRAMEWORKS	=	-F./frameworks \
-				-rpath ./frameworks \
-				-framework OpenGL -framework AppKit -framework OpenCl \
-				-framework SDL2 -framework SDL2_ttf -framework SDL2_image \
-				-framework SDL2_mixer
-endif
-
 all: $(NAME)
 
 .PHONY: all clean
