@@ -13,15 +13,27 @@
 #ifndef ABSTRACTVM_HPP
 #define ABSTRACTVM_HPP
 
+#include "IOperand.hpp"
+#include "FactoryMethod.hpp"
 #include <iostream>
 #include <fstream>
 #include <regex>
 #include <vector>
+#include <map>
 
 class AbstractVM
 {
+	bool already_exited;
+	FactoryMethod fabric;
+	std::vector<IOperand const *> v;
+
+	void push(eOperandType type, std::string const &value);
+	void assert(eOperandType type, std::string const &value);
+	void pop();
+	void dump();
 public:
-	void process(std::string line);
+	void execute(std::string line);
+	void verify(std::string line);
 	AbstractVM();
 	~AbstractVM();
 };

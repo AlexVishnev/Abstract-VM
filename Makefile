@@ -13,7 +13,7 @@
 NAME = avm
 
 CC = g++
-FILES = Main AbstractVM FactoryMethod
+FILES = Main AbstractVM FactoryMethod Operand
 SRC = $(addprefix src/, $(addsuffix .cpp, $(FILES)))
 OBJ = $(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_LIST = $(addsuffix .o, $(FILES))
@@ -25,7 +25,7 @@ ifdef FLAGS
 CFLAGS	= -std=c++11
 	endif
 	ifeq ($(FLAGS), debug)
-CFLAGS	=	-Wall -Wextra -Werror -std=c++11 -g
+CFLAGS	= -Wall -Wextra -Werror -std=c++11 -g
 	endif
 endif
 

@@ -38,12 +38,14 @@ int main(int argc, char const *argv[])
 		}
 		try {
 			for (auto &line : v) {
-				avm.process(line);
+				avm.execute(line);
 			}
 		} catch (std::exception& e) {
 			std::cout << e.what() << std::endl;
 		}
-	} else if (argc == 2) {
+	}
+	else if (argc == 2)
+	{
 		std::ifstream infile(argv[1]);
 		if (!infile.is_open())
 			std::cout << "Error opening file" << std::endl;
@@ -52,12 +54,15 @@ int main(int argc, char const *argv[])
 				v.push_back(line);
 			try {
 				for (auto &line : v) {
-					avm.process(line);
+					avm.execute(line);
 				}
 			} catch (std::exception &e) {
 				std::cout << e.what() << std::endl;
 			}
 		}
+	} else
+	{
+		std::cout << "Usage: ./avm [<no parameters>] | <filename>" << std::endl;
 	}
 	return 0;
 }
