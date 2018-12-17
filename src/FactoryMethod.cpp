@@ -41,23 +41,31 @@ FactoryMethod::~FactoryMethod() {
 }
 
 IOperand const *FactoryMethod::createOperand(eOperandType type, std::string const &value) const {
-	switch (type) {
-		case Int8:
-			return createInt8(value);
-			break;
-		case Int16:
-			return createInt16(value);
-			break;
-		case Int32:
-			return createInt32(value);
-			break;
-		case Float:
-			return createFloat(value);
-			break;
-		case Double:
-			return createDouble(value);
-			break;
-	}
-	return nullptr;
+	IOperand const *(FactoryMethod::*method[])(std::string const &value) const = {
+		&FactoryMethod::createInt8,
+		&FactoryMethod::createInt16,
+		&FactoryMethod::createInt32,
+		&FactoryMethod::createFloat,
+		&FactoryMethod::createDouble
+	};
+	return ((this->*method[type])(value));
+	// switch (type) {
+	// 	case Int8:
+	// 		return createInt8(value);
+	// 		break;
+	// 	case Int16:
+	// 		return createInt16(value);
+	// 		break;
+	// 	case Int32:
+	// 		return createInt32(value);
+	// 		break;
+	// 	case Float:
+	// 		return createFloat(value);
+	// 		break;
+	// 	case Double:
+	// 		return createDouble(value);
+	// 		break;
+	// }
+	// return nullptr;
 }
 

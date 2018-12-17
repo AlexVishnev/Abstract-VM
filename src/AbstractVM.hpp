@@ -15,16 +15,15 @@
 
 #include <iostream>
 #include <fstream>
+#include <regex>
+#include <vector>
 
 class AbstractVM
 {
-private:
-	std::string getLine();
 public:
+	void process(std::string line);
 	AbstractVM();
-	AbstractVM(const char *file);
 	~AbstractVM();
-	
 };
 
 #endif
