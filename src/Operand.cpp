@@ -16,7 +16,9 @@ Operand::Operand(){}
 Operand::~Operand(){}
 
 // int					getPrecision(void) const {return nullptr;}
-// eOperandType		getType(void) const {return nullptr;}
+// eOperandType		getType(void) const {
+// 	return nullptr;
+// }
 // IOperand const		*operator+(IOperand const & rhs) const {return const nullptr;}
 // IOperand const		*operator-(IOperand const & rhs) const {return nullptr;}
 // IOperand const		*operator*(IOperand const & rhs) const {return nullptr;}

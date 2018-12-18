@@ -33,7 +33,7 @@ class AbstractVM
 	void dump();
 public:
 	void execute(std::string line);
-	void verify(std::string line);
+	void verify(std::string line, int count);
 	AbstractVM();
 	~AbstractVM();
 };

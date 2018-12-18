@@ -26,41 +26,51 @@ int main(int argc, char const *argv[])
 	AbstractVM avm;
 	std::string line;
 	std::vector<std::string> v;
+	int count = 0;
 
 	if (argc == 1)
 	{
-		while (1)
-		{
-			line = getLine();
-			if (line == ";;")
-				break ;
-			v.push_back(line);
-		}
 		try {
+			while (1)
+			{
+				line = getLine();
+				if (line == ";;")
+					break ;
+				avm.verify(line, ++count);
+				v.push_back(line);
+			}
 			for (auto &line : v) {
 				avm.execute(line);
 			}
 		} catch (std::exception& e) {
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
+		} catch (char const* msg) {
+			std::cerr << msg << std::endl;
 		}
 	}
 	else if (argc == 2)
 	{
 		std::ifstream infile(argv[1]);
 		if (!infile.is_open())
-			std::cout << "Error opening file" << std::endl;
+			std::cerr << "Error opening file" << std::endl;
 		else {
-			while (std::getline(infile, line))
-				v.push_back(line);
 			try {
+				while (std::getline(infile, line)) {
+					avm.verify(line, ++count);
+					if (!line.empty())
+						v.push_back(line);
+				}
 				for (auto &line : v) {
 					avm.execute(line);
 				}
 			} catch (std::exception &e) {
-				std::cout << e.what() << std::endl;
+				std::cerr << e.what() << std::endl;
+			} catch (char const* msg) {
+				std::cerr << msg << std::endl;
 			}
 		}
-	} else
+	}
+	else
 	{
 		std::cout << "Usage: ./avm [<no parameters>] | <filename>" << std::endl;
 	}

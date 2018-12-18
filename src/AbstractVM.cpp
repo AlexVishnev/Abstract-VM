@@ -29,34 +29,50 @@ void	AbstractVM::execute(std::string line)
 	std::map<std::string, void (AbstractVM::*)()> instruction_map = {
 		{"pop", &AbstractVM::pop},
 		{"dump", &AbstractVM::dump},
+		// {"add", &AbstractVM::add},
+		// {"sub", &AbstractVM::sub},
+		// {"mul", &AbstractVM::mul},
+		// {"div", &AbstractVM::div},
+		// {"mod", &AbstractVM::mod},
+		// {"print", &AbstractVM::print},
+		// {"exit", &AbstractVM::exit}
 	};
-	std::regex insert_value("([\t ]*)(push|assert)([\t ]*)((int8|int16|int32)\\([-]?[0-9]+\\)|(float|double)\\([-]?[0-9]+.[0-9]+\\))([\t ]*)([;].*)?");
-	std::regex exec_instruction("([\t ]*)(pop|dump|add|sub|mul|div|mod|print|exit)([\t ]*)([;].*)?");
-	std::regex comment("([\t ]*)([;].*)");
+	std::regex insert_value("[\t ]*(push|assert)[\t ]*((int8|int16|int32|float|double)\\(([-]?[0-9]+(.[0-9]+)?)\\))[\t ]*([;].*)?");
+	std::regex exec_instruction("[\t ]*(pop|dump|add|sub|mul|div|mod|print|exit)[\t ]*([;].*)?");
+	std::regex comment("[\t ]*([;].*)");
+	std::smatch match;
 
 	if (regex_match(line, insert_value)) {
-		std::cout << "(push|assert)" << std::endl;
+		std::regex_search(line, match, insert_value);
+		// (this->*value_map[match.str(1)])
+		// for (std::smatch::iterator it = match.begin(); it!=match.end(); ++it) {
+		// 	std::cout << *it << "|";
+		// }
+		// std::cout << std::endl;
+		std::cout << match.str(3) << " " << match.str(4) << std::endl;
+		// std::cout <<  << std::endl;
+		// std::cout << "(push|assert)" << std::endl;
 	} else if (regex_match(line, exec_instruction)) {
-		std::cout << "(pop|dump|add|sub|mul|div|mod|print|exit)" << std::endl;
+		// std::cout << "(pop|dump|add|sub|mul|div|mod|print|exit)" << std::endl;
 	} else if (regex_match(line, comment)) {
-		std::cout << "comment" << std::endl;
+		// std::cout << "comment" << std::endl;
 	} else {
-		std::cout << "WRONG!" << std::endl;
+		// std::cout << "WRONG!" << std::endl;
 	}
 }
 
-void	AbstractVM::verify(std::string line) {
-	std::regex insert_value("([\t ]*)(push|assert)([\t ]*)((int8|int16|int32)\\([-]?[0-9]+\\)|(float|double)\\([-]?[0-9]+.[0-9]+\\))([\t ]*)([;].*)?");
-	std::regex exec_instruction("([\t ]*)(pop|dump|add|sub|mul|div|mod|print|exit)([\t ]*)([;].*)?");
-	std::regex comment("([\t ]*)([;].*)");
+void	AbstractVM::verify(std::string line, int count) {
+	std::regex insert_value("[\t ]*(push|assert)[\t ]*((int8|int16|int32|float|double)\\(([-]?[0-9]+(.[0-9]+)?)\\))[\t ]*([;].*)?");
+	std::regex exec_instruction("[\t ]*(pop|dump|add|sub|mul|div|mod|print|exit)[\t ]*([;].*)?");
+	std::regex comment("[\t ]*([;].*)");
 
 	if (!regex_match(line, insert_value)
 		&& !regex_match(line, exec_instruction)
 		&& !regex_match(line, comment))
 	{
-		throw "Lexical exeption";
-	} else if (regex_match(line, exec_instruction) && line.find("exit")) {
-		if (already_exited) {
+		std::cout << "Lexical exeption" << std::endl;
+	} else if (regex_match(line, exec_instruction) && !line.find("exit")) {
+		if (already_exited == true) {
 			already_exited = false;
 			throw "Lexical exeption: double exit.";
 		}
