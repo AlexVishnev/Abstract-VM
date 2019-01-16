@@ -20,6 +20,16 @@ AbstractVM::~AbstractVM() {
 	
 }
 
+std::regex insert_value("[\t ]*(push|assert)[\t ]*((int8|int16|int32|float|double)\\(([-]?[0-9]+(.[0-9]+)?)\\))[\t ]*([;].*)?");
+std::regex exec_instruction("[\t ]*(pop|dump|add|sub|mul|div|mod|print|exit)[\t ]*([;].*)?");
+std::regex comment("[\t ]*([;].*)");
+
+//group 1 - cmd (push|assert)
+//group 2 -     (int32(42))
+//group 3 - type (int32)
+//group 4 - value (42)
+//grpup 5 - mantissa (.23)
+
 void	AbstractVM::execute(std::string line)
 {
 	std::map<std::string, void (AbstractVM::*)(eOperandType type, std::string const &value)> value_map = {
@@ -29,17 +39,16 @@ void	AbstractVM::execute(std::string line)
 	std::map<std::string, void (AbstractVM::*)()> instruction_map = {
 		{"pop", &AbstractVM::pop},
 		{"dump", &AbstractVM::dump},
-		// {"add", &AbstractVM::add},
-		// {"sub", &AbstractVM::sub},
-		// {"mul", &AbstractVM::mul},
-		// {"div", &AbstractVM::div},
-		// {"mod", &AbstractVM::mod},
-		// {"print", &AbstractVM::print},
-		// {"exit", &AbstractVM::exit}
+		/*
+		{"add", &AbstractVM::add},
+		{"sub", &AbstractVM::sub},
+		{"mul", &AbstractVM::mul},
+		{"div", &AbstractVM::div},
+		{"mod", &AbstractVM::mod},
+		{"print", &AbstractVM::print},
+		{"exit", &AbstractVM::exit}
+		*/
 	};
-	std::regex insert_value("[\t ]*(push|assert)[\t ]*((int8|int16|int32|float|double)\\(([-]?[0-9]+(.[0-9]+)?)\\))[\t ]*([;].*)?");
-	std::regex exec_instruction("[\t ]*(pop|dump|add|sub|mul|div|mod|print|exit)[\t ]*([;].*)?");
-	std::regex comment("[\t ]*([;].*)");
 	std::smatch match;
 
 	if (regex_match(line, insert_value)) {
@@ -51,21 +60,17 @@ void	AbstractVM::execute(std::string line)
 		// std::cout << std::endl;
 		std::cout << match.str(3) << " " << match.str(4) << std::endl;
 		// std::cout <<  << std::endl;
-		// std::cout << "(push|assert)" << std::endl;
+		std::cout << "(push|assert)" << std::endl;
 	} else if (regex_match(line, exec_instruction)) {
-		// std::cout << "(pop|dump|add|sub|mul|div|mod|print|exit)" << std::endl;
+		std::cout << "(pop|dump|add|sub|mul|div|mod|print|exit)" << std::endl;
 	} else if (regex_match(line, comment)) {
-		// std::cout << "comment" << std::endl;
+		std::cout << "comment" << std::endl;
 	} else {
-		// std::cout << "WRONG!" << std::endl;
+		std::cout << "WRONG!" << std::endl;
 	}
 }
 
 void	AbstractVM::verify(std::string line, int count) {
-	std::regex insert_value("[\t ]*(push|assert)[\t ]*((int8|int16|int32|float|double)\\(([-]?[0-9]+(.[0-9]+)?)\\))[\t ]*([;].*)?");
-	std::regex exec_instruction("[\t ]*(pop|dump|add|sub|mul|div|mod|print|exit)[\t ]*([;].*)?");
-	std::regex comment("[\t ]*([;].*)");
-
 	if (!regex_match(line, insert_value)
 		&& !regex_match(line, exec_instruction)
 		&& !regex_match(line, comment))

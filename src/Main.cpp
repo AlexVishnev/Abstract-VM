@@ -56,9 +56,11 @@ int main(int argc, char const *argv[])
 		else {
 			try {
 				while (std::getline(infile, line)) {
-					avm.verify(line, ++count);
 					if (!line.empty())
+					{
+						avm.verify(line, ++count);
 						v.push_back(line);
+					}
 				}
 				for (auto &line : v) {
 					avm.execute(line);
