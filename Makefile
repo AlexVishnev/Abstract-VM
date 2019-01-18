@@ -13,7 +13,7 @@
 NAME = avm
 
 CC = g++
-FILES = Main AbstractVM FactoryMethod Operand
+FILES = Main AbstractVM FactoryMethod Exception
 SRC = $(addprefix src/, $(addsuffix .cpp, $(FILES)))
 OBJ = $(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_LIST = $(addsuffix .o, $(FILES))

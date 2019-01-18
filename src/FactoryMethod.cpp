@@ -10,9 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "FactoryMethod.hpp"
+#include "Operand.hpp"
+#include <limits>
 
 IOperand const *FactoryMethod::createInt8(std::string const &value) const {
+	try {
+		int t = std::stoi(value);
+		if (t < std::numeric_limits<int8_t>::min())
+			throw Overflow();
+		if (t > std::numeric_limits<int8_t>::max())
+			throw Overflow();
+		return new Operand<int8_t>(Int8, value);
+	} catch (std::exception &e) {
+		throw Overflow();
+	}
 	return nullptr;
 }
 
@@ -32,14 +43,6 @@ IOperand const *FactoryMethod::createDouble(std::string const &value) const {
 	return nullptr;
 }
 
-FactoryMethod::FactoryMethod() {
-
-}
-
-FactoryMethod::~FactoryMethod() {
-	
-}
-
 IOperand const *FactoryMethod::createOperand(eOperandType type, std::string const &value) const {
 	IOperand const *(FactoryMethod::*method[])(std::string const &value) const = {
 		&FactoryMethod::createInt8,
@@ -49,23 +52,5 @@ IOperand const *FactoryMethod::createOperand(eOperandType type, std::string cons
 		&FactoryMethod::createDouble
 	};
 	return ((this->*method[type])(value));
-	// switch (type) {
-	// 	case Int8:
-	// 		return createInt8(value);
-	// 		break;
-	// 	case Int16:
-	// 		return createInt16(value);
-	// 		break;
-	// 	case Int32:
-	// 		return createInt32(value);
-	// 		break;
-	// 	case Float:
-	// 		return createFloat(value);
-	// 		break;
-	// 	case Double:
-	// 		return createDouble(value);
-	// 		break;
-	// }
-	// return nullptr;
 }
 
