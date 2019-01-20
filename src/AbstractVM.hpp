@@ -23,14 +23,17 @@
 
 class AbstractVM
 {
-	bool already_exited;
-	FactoryMethod fabric;
+private:
+	FactoryMethod f;
 	std::vector<IOperand const *> v;
+
+	bool already_exited;
 
 	void push(eOperandType type, std::string const &value);
 	void assert(eOperandType type, std::string const &value);
 	void pop();
 	void dump();
+	eOperandType getType(std::string const &type);
 public:
 	void execute(std::string line);
 	void verify(std::string line, int count);

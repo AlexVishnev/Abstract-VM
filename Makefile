@@ -22,7 +22,7 @@ HEADERS = -I./
 FLAGS = no
 ifdef FLAGS
 	ifeq ($(FLAGS), no)
-CFLAGS	= -std=c++11
+CFLAGS	= -std=c++11 -g
 	endif
 	ifeq ($(FLAGS), debug)
 CFLAGS	= -Wall -Wextra -Werror -std=c++11 -g

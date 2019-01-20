@@ -30,6 +30,17 @@ std::regex comment("[\t ]*([;].*)");
 //group 4 - value (42)
 //grpup 5 - mantissa (.23)
 
+eOperandType AbstractVM::getType(std::string const &type) {
+	std::map <std::string, eOperandType> types = {
+		{"int8", Int8},
+		{"int16", Int16},
+		{"int32", Int32},
+		{"float", Float},
+		{"double", Double}
+	};
+	return types[type];
+}
+
 void	AbstractVM::execute(std::string line)
 {
 	std::map<std::string, void (AbstractVM::*)(eOperandType type, std::string const &value)> value_map = {
@@ -53,15 +64,11 @@ void	AbstractVM::execute(std::string line)
 
 	if (regex_match(line, insert_value)) {
 		std::regex_search(line, match, insert_value);
-		// (this->*value_map[match.str(1)])
-		// for (std::smatch::iterator it = match.begin(); it!=match.end(); ++it) {
-		// 	std::cout << *it << "|";
-		// }
-		// std::cout << std::endl;
-		std::cout << match.str(3) << " " << match.str(4) << std::endl;
-		// std::cout <<  << std::endl;
-		std::cout << "(push|assert)" << std::endl;
+		(this->*value_map[match.str(1)])(getType(match.str(3)), match.str(4));
+		// std::cout << match.str(3) <<  " " << match.str(4) << std::endl;
 	} else if (regex_match(line, exec_instruction)) {
+		std::regex_search(line, match, exec_instruction);
+		(this->*instruction_map[match.str(1)])();
 		std::cout << "(pop|dump|add|sub|mul|div|mod|print|exit)" << std::endl;
 	} else if (regex_match(line, comment)) {
 		std::cout << "comment" << std::endl;
@@ -86,7 +93,8 @@ void	AbstractVM::verify(std::string line, int count) {
 }
 
 void	AbstractVM::push(eOperandType type, std::string const &value) {
-	v.push_back(fabric.createOperand(type, value));
+	v.push_back(FactoryMethod().createOperand(type, value));
+	std::cout << "Pushed back!" << std::endl;
 }
 
 void	AbstractVM::assert(eOperandType type, std::string const &value) {
@@ -97,6 +105,7 @@ void AbstractVM::pop() {
 	if (v.empty())
 		throw "Vector is empty";
 	v.pop_back();
+	std::cout << "Popped back!" << std::endl;
 }
 
 void AbstractVM::dump() {
