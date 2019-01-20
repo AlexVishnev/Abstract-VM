@@ -24,23 +24,58 @@ IOperand const *FactoryMethod::createInt8(std::string const &value) const {
 	} catch (std::exception &e) {
 		throw Overflow();
 	}
-	return nullptr;
 }
 
 IOperand const *FactoryMethod::createInt16(std::string const &value) const {
-	return nullptr;
+	try {
+		int t = std::stoi(value);
+		if (t < std::numeric_limits<int16_t>::min())
+			throw Overflow();
+		if (t > std::numeric_limits<int16_t>::max())
+			throw Overflow();
+		return new Operand<int16_t>(Int16, value);
+	} catch (std::exception &e) {
+		throw Overflow();
+	}
 }
 
 IOperand const *FactoryMethod::createInt32(std::string const &value) const {
-	return nullptr;
+	try {
+		int t = std::stoi(value);
+		if (t < std::numeric_limits<int32_t>::min())
+			throw Overflow();
+		if (t > std::numeric_limits<int32_t>::max())
+			throw Overflow();
+		return new Operand<int32_t>(Int32, value);
+	} catch (std::exception &e) {
+		throw Overflow();
+	}
 }
 
 IOperand const *FactoryMethod::createFloat(std::string const &value) const {
-	return nullptr;
+	try {
+		float t = std::stof(value);
+		if (t < std::numeric_limits<float>::min())
+			throw Overflow();
+		if (t > std::numeric_limits<float>::max())
+			throw Overflow();
+		return new Operand<float>(Float, value);
+	} catch (std::exception &e) {
+		throw Overflow();
+	}
 }
 
 IOperand const *FactoryMethod::createDouble(std::string const &value) const {
-	return nullptr;
+	try {
+		double t = std::stod(value);
+		if (t < std::numeric_limits<double>::min())
+			throw Overflow();
+		if (t > std::numeric_limits<double>::max())
+			throw Overflow();
+		return new Operand<double>(Double, value);
+	} catch (std::exception &e) {
+		throw Overflow();
+	}
 }
 
 IOperand const *FactoryMethod::createOperand(eOperandType type, std::string const &value) const {
