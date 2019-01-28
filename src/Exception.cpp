@@ -20,7 +20,7 @@ Overflow::~Overflow()
 {}
 const char *Overflow::what() const throw()
 {
-	std::string str = "Overflow with the value: " + value;
+	std::string str = "Overflow of the value: " + value;
 	return str.c_str();
 }
 
@@ -28,18 +28,14 @@ DivisionByZero::DivisionByZero()
 {}
 DivisionByZero::~DivisionByZero()
 {}
-const char *DivisionByZero::what() const throw()
-{
-	std::string str = "Division by zero!";
-	return str.c_str();
+const char *DivisionByZero::what() const throw() {
+	return ("Division by zero!");
 }
 
 ModuloByZero::ModuloByZero()
 {}
 ModuloByZero::~ModuloByZero()
 {}
-const char *ModuloByZero::what() const throw()
-{
-	std::string str = "Modulo by zero!";
-	return str.c_str();
+const char *ModuloByZero::what() const throw() {
+	return ("Division by zero!");
 }

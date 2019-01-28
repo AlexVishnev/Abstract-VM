@@ -27,14 +27,22 @@ private:
 	FactoryMethod f;
 	std::vector<IOperand const *> v;
 
-	bool already_exited;
+	int count_of_exits;
 
 	void push(eOperandType type, std::string const &value);
 	void assert(eOperandType type, std::string const &value);
 	void pop();
 	void dump();
+	void add();
+	void sub();
+	void mul();
+	void div();
+	void mod();
+	void print();
+	void exit();
 	eOperandType getType(std::string const &type);
 public:
+	int getCountOfExits();
 	void execute(std::string line);
 	void verify(std::string line, int count);
 	AbstractVM();

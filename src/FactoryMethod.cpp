@@ -17,12 +17,12 @@ IOperand const *FactoryMethod::createInt8(std::string const &value) const {
 	try {
 		int t = std::stoi(value);
 		if (t < std::numeric_limits<int8_t>::min())
-			throw Overflow();
+			throw Overflow(value);
 		if (t > std::numeric_limits<int8_t>::max())
-			throw Overflow();
+			throw Overflow(value);
 		return new Operand<int8_t>(Int8, value);
 	} catch (std::exception &e) {
-		throw Overflow();
+		throw Overflow(value);
 	}
 }
 
@@ -30,12 +30,12 @@ IOperand const *FactoryMethod::createInt16(std::string const &value) const {
 	try {
 		int t = std::stoi(value);
 		if (t < std::numeric_limits<int16_t>::min())
-			throw Overflow();
+			throw Overflow(value);
 		if (t > std::numeric_limits<int16_t>::max())
-			throw Overflow();
+			throw Overflow(value);
 		return new Operand<int16_t>(Int16, value);
 	} catch (std::exception &e) {
-		throw Overflow();
+		throw Overflow(value);
 	}
 }
 
@@ -43,38 +43,40 @@ IOperand const *FactoryMethod::createInt32(std::string const &value) const {
 	try {
 		int t = std::stoi(value);
 		if (t < std::numeric_limits<int32_t>::min())
-			throw Overflow();
+			throw Overflow(value);
 		if (t > std::numeric_limits<int32_t>::max())
-			throw Overflow();
+			throw Overflow(value);
 		return new Operand<int32_t>(Int32, value);
 	} catch (std::exception &e) {
-		throw Overflow();
+		throw Overflow(value);
 	}
 }
 
 IOperand const *FactoryMethod::createFloat(std::string const &value) const {
 	try {
 		float t = std::stof(value);
-		if (t < std::numeric_limits<float>::min())
-			throw Overflow();
-		if (t > std::numeric_limits<float>::max())
-			throw Overflow();
+		if (t < std::numeric_limits<float>::lowest()) {
+			throw Overflow(value);
+		}
+		if (t > std::numeric_limits<float>::max()) {
+			throw Overflow(value);
+		}
 		return new Operand<float>(Float, value);
 	} catch (std::exception &e) {
-		throw Overflow();
+		throw Overflow(value);
 	}
 }
 
 IOperand const *FactoryMethod::createDouble(std::string const &value) const {
 	try {
 		double t = std::stod(value);
-		if (t < std::numeric_limits<double>::min())
-			throw Overflow();
+		if (t < std::numeric_limits<double>::lowest())
+			throw Overflow(value);
 		if (t > std::numeric_limits<double>::max())
-			throw Overflow();
+			throw Overflow(value);
 		return new Operand<double>(Double, value);
 	} catch (std::exception &e) {
-		throw Overflow();
+		throw Overflow(value);
 	}
 }
 

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = avm
+NAME = abstract_vm
 
 CC = g++
 FILES = Main AbstractVM FactoryMethod Exception

@@ -36,13 +36,18 @@ int main(int argc, char const *argv[])
 				line = getLine();
 				if (line == ";;")
 					break ;
+				if (line.empty() || line[0] == ';') {
+					++count;
+				}
 				avm.verify(line, ++count);
 				v.push_back(line);
 			}
 			for (auto &line : v) {
 				avm.execute(line);
 			}
-		} catch (std::exception& e) {
+			if (avm.getCountOfExits() == 0)
+				throw "No exit command";
+		} catch (std::exception &e) {
 			std::cerr << e.what() << std::endl;
 		} catch (char const* msg) {
 			std::cerr << msg << std::endl;
@@ -56,15 +61,19 @@ int main(int argc, char const *argv[])
 		else {
 			try {
 				while (std::getline(infile, line)) {
-					if (!line.empty())
+					if (line.empty() || line[0] == ';')
 					{
-						avm.verify(line, ++count);
-						v.push_back(line);
+						++count;
+						continue ;
 					}
+					avm.verify(line, ++count);
+					v.push_back(line);
 				}
 				for (auto &line : v) {
 					avm.execute(line);
 				}
+				if (avm.getCountOfExits() == 0)
+					throw "No exit command";
 			} catch (std::exception &e) {
 				std::cerr << e.what() << std::endl;
 			} catch (char const* msg) {

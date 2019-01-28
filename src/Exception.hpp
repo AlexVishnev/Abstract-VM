@@ -15,7 +15,7 @@
 #include <string>
 #include <iostream>
 
-class Overflow
+class Overflow : public std::exception
 {
 private:
 	std::string value;
@@ -24,23 +24,23 @@ public:
 	Overflow(std::string value);
 	~Overflow();
 	
-	const char *what() const throw();
+	virtual const char *what() const throw();
 };
 
-class DivisionByZero
+class DivisionByZero : public std::exception
 {
 public:
 	DivisionByZero();
 	~DivisionByZero();
-	const char *what() const throw();
+	virtual const char *what() const throw();
 };
 
-class ModuloByZero
+class ModuloByZero : public std::exception
 {
 public:
 	ModuloByZero();
 	~ModuloByZero();
-	const char *what() const throw();
+	virtual const char *what() const throw();
 };
 
 #endif

@@ -1,2 +1,10 @@
-push int32(42)
+push int8(1)
+print
+push int16(2)
+add
+push int32(3)
+add
+push float(4.2)
+push double(5.5)
 dump
+exit

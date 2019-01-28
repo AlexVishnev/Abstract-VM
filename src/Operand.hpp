@@ -40,9 +40,17 @@ public:
 	}
 	virtual ~Operand(){}
 	
-	int					getPrecision(void) const {return static_cast<int>(this->type);}
-	eOperandType		getType(void) const {return this->type;}
-	std::string const	&toString(void) const {return this->value;}
+	int					getPrecision(void) const {
+		return static_cast<int>(this->type);
+	}
+	
+	eOperandType		getType(void) const {
+		return this->type;
+	}
+	
+	std::string const	&toString(void) const {
+		return this->value;
+	}
 
 	IOperand const		*operator+(IOperand const &rhs) const {
 		std::ostringstream ss;
@@ -52,7 +60,7 @@ public:
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
 		} catch(std::exception &e) {
-			throw Overflow();
+			throw Overflow(ss.str());
 		}
 	}
 
@@ -64,9 +72,10 @@ public:
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
 		} catch(std::exception &e) {
-			throw Overflow();
+			throw Overflow(ss.str());
 		}
 	}
+
 	IOperand const		*operator*(IOperand const &rhs) const {
 		std::ostringstream ss;
 		try {
@@ -75,36 +84,55 @@ public:
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
 		} catch(std::exception &e) {
-			throw Overflow();
+			throw Overflow(ss.str());
 		}
 	}
+
 	IOperand const		*operator/(IOperand const &rhs) const {
 		std::ostringstream ss;
 		try {
-			double notmy = std::stod(rhs.toString());
-			if (notmy == 0)
+			double other = std::stod(rhs.toString());
+			if (other == 0)
 				throw DivisionByZero();
 			eOperandType newType = std::max(this->type, rhs.getType());
-			double value = std::stod(this->value) / notmy;
+			double value = std::stod(this->value) / other;
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
+		} catch(DivisionByZero &e) {
+			throw DivisionByZero();
 		} catch(std::exception &e) {
-			throw Overflow();
+			throw Overflow(ss.str());
 		}
 	}
+
 	IOperand const		*operator%(IOperand const &rhs) const {
 		std::ostringstream ss;
 		try {
-			double notmy = std::stod(rhs.toString());
-			if (notmy == 0)
+			double other = std::stod(rhs.toString());
+			if (other == 0)
 				throw ModuloByZero();
 			eOperandType newType = std::max(this->type, rhs.getType());
-			double value = std::stod(this->value) / notmy;
+			double value = std::stod(this->value) / other;
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
+		} catch(ModuloByZero &e) {
+			throw ModuloByZero();
 		} catch(std::exception &e) {
-			throw Overflow();
+			throw Overflow(ss.str());
 		}
+	}
+
+	bool operator==( IOperand const & rhs ) const
+	{
+		double rv = std::stod(rhs.toString());
+		double lv = std::stod(this->toString());
+
+		return (lv == rv) ? true : false;
+	}
+
+	bool operator!=( IOperand const & rhs ) const
+	{
+		return !(*this == rhs);
 	}
 };
 
