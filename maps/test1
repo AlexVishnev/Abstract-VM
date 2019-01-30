@@ -1,10 +1,13 @@
-push int8(1)
-print
 push int16(2)
-add
-push int32(3)
-add
-push float(4.2)
+push int8(1)
 push double(5.5)
+push float(4.2)
+push int32(3)
+dump
+sum
+avg
+min
+max
+sort
 dump
 exit

@@ -46,7 +46,7 @@ int main(int argc, char const *argv[])
 				avm.execute(line);
 			}
 			if (avm.getCountOfExits() == 0)
-				throw "No exit command";
+				throw LexicalExeption("No exit command");
 		} catch (std::exception &e) {
 			std::cerr << e.what() << std::endl;
 		} catch (char const* msg) {
@@ -73,7 +73,7 @@ int main(int argc, char const *argv[])
 					avm.execute(line);
 				}
 				if (avm.getCountOfExits() == 0)
-					throw "No exit command";
+					throw LexicalExeption("No exit command");
 			} catch (std::exception &e) {
 				std::cerr << e.what() << std::endl;
 			} catch (char const* msg) {

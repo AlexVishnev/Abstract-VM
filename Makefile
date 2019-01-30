@@ -6,12 +6,11 @@
 #    By: omiroshn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/11 11:44:06 by omiroshn          #+#    #+#              #
-#    Updated: 2018/12/11 11:44:07 by omiroshn         ###   ########.fr        #
+#    Updated: 2019/01/30 18:21:45 by omiroshn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = abstract_vm
-
+NAME = avm
 CC = g++
 FILES = Main AbstractVM FactoryMethod Exception
 SRC = $(addprefix src/, $(addsuffix .cpp, $(FILES)))
@@ -19,12 +18,12 @@ OBJ = $(addprefix obj/, $(addsuffix .o, $(FILES)))
 OBJ_LIST = $(addsuffix .o, $(FILES))
 HEADERS = -I./
 
-FLAGS = no
+FLAGS = yes
 ifdef FLAGS
 	ifeq ($(FLAGS), no)
 CFLAGS	= -std=c++11 -g
 	endif
-	ifeq ($(FLAGS), debug)
+	ifeq ($(FLAGS), yes)
 CFLAGS	= -Wall -Wextra -Werror -std=c++11 -g
 	endif
 endif

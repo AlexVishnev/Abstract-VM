@@ -60,7 +60,7 @@ public:
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
 		} catch(std::exception &e) {
-			throw Overflow(ss.str());
+			throw OverflowUnderflowException(ss.str());
 		}
 	}
 
@@ -72,7 +72,7 @@ public:
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
 		} catch(std::exception &e) {
-			throw Overflow(ss.str());
+			throw OverflowUnderflowException(ss.str());
 		}
 	}
 
@@ -84,7 +84,7 @@ public:
 			ss << value;
 			return FactoryMethod().createOperand(newType, ss.str());
 		} catch(std::exception &e) {
-			throw Overflow(ss.str());
+			throw OverflowUnderflowException(ss.str());
 		}
 	}
 
@@ -101,7 +101,7 @@ public:
 		} catch(DivisionByZero &e) {
 			throw DivisionByZero();
 		} catch(std::exception &e) {
-			throw Overflow(ss.str());
+			throw OverflowUnderflowException(ss.str());
 		}
 	}
 
@@ -118,7 +118,7 @@ public:
 		} catch(ModuloByZero &e) {
 			throw ModuloByZero();
 		} catch(std::exception &e) {
-			throw Overflow(ss.str());
+			throw OverflowUnderflowException(ss.str());
 		}
 	}
 

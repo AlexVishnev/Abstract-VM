@@ -15,31 +15,55 @@
 #include <string>
 #include <iostream>
 
-class Overflow : public std::exception
+class LexicalExeption : public std::exception
 {
 private:
-	std::string value;
+	std::string str;
 public:
-	Overflow();
-	Overflow(std::string value);
-	~Overflow();
+	LexicalExeption();
+	LexicalExeption(std::string str);
+	virtual ~LexicalExeption();
 	
 	virtual const char *what() const throw();
 };
 
-class DivisionByZero : public std::exception
+class EmpyStackException : public std::exception
 {
+private:
+	std::string str;
 public:
-	DivisionByZero();
-	~DivisionByZero();
+	EmpyStackException();
+	EmpyStackException(std::string str);
+	virtual ~EmpyStackException();
+	
 	virtual const char *what() const throw();
 };
 
-class ModuloByZero : public std::exception
+class OverflowUnderflowException : public std::out_of_range
+{
+private:
+	std::string value;
+public:
+	OverflowUnderflowException();
+	OverflowUnderflowException(std::string value);
+	virtual ~OverflowUnderflowException();
+	
+	virtual const char *what() const throw();
+};
+
+class DivisionByZero : public std::invalid_argument
+{
+public:
+	DivisionByZero();
+	virtual ~DivisionByZero();
+	virtual const char *what() const throw();
+};
+
+class ModuloByZero : public std::invalid_argument
 {
 public:
 	ModuloByZero();
-	~ModuloByZero();
+	virtual ~ModuloByZero();
 	virtual const char *what() const throw();
 };
 

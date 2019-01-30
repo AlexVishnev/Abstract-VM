@@ -12,30 +12,54 @@
 
 #include "Exception.hpp"
 
-Overflow::Overflow() : value("0")
+OverflowUnderflowException::OverflowUnderflowException() : std::out_of_range(""), value("0")
 {}
-Overflow::Overflow(std::string value) : value(value)
+OverflowUnderflowException::OverflowUnderflowException(std::string value) : std::out_of_range(""), value(value)
 {}
-Overflow::~Overflow()
+OverflowUnderflowException::~OverflowUnderflowException()
 {}
-const char *Overflow::what() const throw()
+const char *OverflowUnderflowException::what() const throw()
 {
-	std::string str = "Overflow of the value: " + value;
+	std::string str = "\033[31mOverflowUnderflowExeption: Overflow/Underflow of the value: " + value + "\033[0m";
 	return str.c_str();
 }
 
-DivisionByZero::DivisionByZero()
+EmpyStackException::EmpyStackException() : str("0")
+{}
+EmpyStackException::EmpyStackException(std::string str) : str(str)
+{}
+EmpyStackException::~EmpyStackException()
+{}
+const char *EmpyStackException::what() const throw()
+{
+	std::string line = "\033[31mEmpyStackException: " + str + "\033[0m";
+	return line.c_str();
+}
+
+LexicalExeption::LexicalExeption() : str("error.")
+{}
+LexicalExeption::LexicalExeption(std::string str) : str(str)
+{}
+LexicalExeption::~LexicalExeption()
+{}
+const char *LexicalExeption::what() const throw()
+{
+	std::string line = "\033[31mLexicalExeption: " + str + "\033[0m";
+	return line.c_str();
+}
+
+DivisionByZero::DivisionByZero() : std::invalid_argument("")
 {}
 DivisionByZero::~DivisionByZero()
 {}
 const char *DivisionByZero::what() const throw() {
-	return ("Division by zero!");
+	return ("\033[31mInvalid argument: Division by zero!\033[0m");
 }
 
-ModuloByZero::ModuloByZero()
+ModuloByZero::ModuloByZero() : std::invalid_argument("")
 {}
 ModuloByZero::~ModuloByZero()
 {}
 const char *ModuloByZero::what() const throw() {
-	return ("Division by zero!");
+	return ("\033[31mInvalid argument: Modulo by zero!\033[0m");
 }

@@ -24,7 +24,6 @@
 class AbstractVM
 {
 private:
-	FactoryMethod f;
 	std::vector<IOperand const *> v;
 
 	int count_of_exits;
@@ -40,6 +39,13 @@ private:
 	void mod();
 	void print();
 	void exit();
+
+	//bonus
+	void sum();
+	void avg();
+	void sort();
+	void min();
+	void max();
 	eOperandType getType(std::string const &type);
 public:
 	int getCountOfExits();
