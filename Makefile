@@ -6,11 +6,11 @@
 #    By: omiroshn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/11 11:44:06 by omiroshn          #+#    #+#              #
-#    Updated: 2019/01/30 18:21:45 by omiroshn         ###   ########.fr        #
+#    Updated: 2019/01/30 22:23:02 by omiroshn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = avm
+NAME = abstract_vm
 CC = g++
 FILES = Main AbstractVM FactoryMethod Exception
 SRC = $(addprefix src/, $(addsuffix .cpp, $(FILES)))
