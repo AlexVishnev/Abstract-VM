@@ -53,9 +53,9 @@ Abstract-VM is a 42 school project.
 |  **max**  |  Displays maximum value of the stack. |
 
 
-#                        **  Message to 42 students  **
+#               **  Message to 42/Unit Factory students  **
 You are free to copy, modify and share under your name my exercises. But you
 will learn nothing, or will have the impression to understand without be able
 to do it again alone. Be responsible and simply ask for help.
 
-                                                                         omiroshn
+                                                                                               omiroshn
